@@ -1,0 +1,26 @@
+# data lives on the HPC volume, never in git
+data/
+results/
+work/
+envs/
+logs/
+*.parquet
+# Small, public, release fixtures are intentionally versioned so a clean clone
+# can run the declared self-test. Large/raw Parquets remain ignored.
+!results_committed/frozen_truth/*.parquet
+# IGVF's tiny public source-derived schema fixture is versioned; canonical/full tables stay external.
+!admission/variant_effects/sample_rows.parquet
+*.gz
+*.fa
+*.fa.fai
+*.h5ad
+*.mtx
+*.2bit
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+# scratch / audit tmp
+cache/
+.audit_tmp/
+build_pdf/

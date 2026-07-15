@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang='en'><head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width,initial-scale=1'>
+<title>CIS-Δ Leaderboard</title><style>
+
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+         max-width:960px;margin:0 auto;padding:2rem 1.2rem;color:#1a1a1a;line-height:1.55;}
+    h1{font-size:1.9rem;margin:.2rem 0 .6rem;} h2{font-size:1.25rem;margin:2rem 0 .3rem;
+         border-bottom:2px solid #e2e2e2;padding-bottom:.25rem;}
+    .intro{background:#f6f8fa;border-left:4px solid #4a6fa5;padding:.8rem 1rem;border-radius:4px;
+         font-size:.96rem;margin:1rem 0;}
+    .sub{color:#555;font-size:.9rem;margin:.2rem 0 .7rem;}
+    .gen{color:#888;font-size:.8rem;margin-bottom:1rem;}
+    table{border-collapse:collapse;width:100%;margin:.4rem 0 1rem;font-size:.92rem;}
+    th,td{padding:.42rem .6rem;text-align:left;border-bottom:1px solid #eaeaea;}
+    th{background:#33415522;font-weight:600;border-bottom:2px solid #cdd3da;}
+    tr.model td{font-weight:600;} tr.baseline{color:#6a6a6a;background:#fafafa;font-style:italic;}
+    td.num{font-variant-numeric:tabular-nums;text-align:right;} .rank{color:#999;width:2.2rem;}
+    .note{background:#fff8e6;border-left:4px solid #d9a441;padding:.6rem .9rem;border-radius:4px;
+         font-size:.88rem;margin:.3rem 0 1rem;}
+    .verdict{background:#eef6ee;border-left:4px solid #4a9a5a;padding:.6rem .9rem;border-radius:4px;
+         font-size:.92rem;margin:.5rem 0 1rem;}
+    code,pre{font-family:'SF Mono',Menlo,Consolas,monospace;font-size:.86rem;}
+    pre{background:#f6f8fa;padding:.8rem 1rem;border-radius:5px;overflow-x:auto;}
+    .badge{display:inline-block;background:#e6ebf2;color:#4a6fa5;font-size:.7rem;font-weight:600;
+         padding:.05rem .4rem;border-radius:3px;margin-left:.4rem;vertical-align:middle;}
+    a{color:#4a6fa5;}
+    
+</style></head><body>
+<div style='border:3px solid #b42318;background:#fef3f2;padding:1rem;margin-bottom:1.5rem'><strong>LEGACY / PROVISIONAL.</strong> This generator renders pre-revision artifacts. Its datasets are not V4-admitted, and the output is not a current scientific conclusion.</div>
+<h1>CIS-Δ Leaderboard</h1>
+<div class='intro'>CIS-Δ is a virtual-cell benchmark for the cis-regulatory expression response: it scores a method's predicted change in expression (Δ) for a (cell context, cis-sequence intervention) pair against endogenous single-cell, eQTL, and CRISPR ground truth. The central finding is that sequence oracles show a calibration/coverage gap that holds across architectures — most real regulatory links fall outside their receptive field, and where visible they rarely out-rank a distance-to-TSS prior; on eQTLs they are out-ranked by fine-mapping PIP. This leaderboard ranks every benchmarked model against those baselines, per axis.</div>
+<div class='gen'>Auto-generated from <code>results_committed/*.json</code> on 2026-07-14 00:35 UTC. Regenerate with <code>code/gen_leaderboard.py</code>. Baseline rows are shaded and ranked inline with the models.</div>
+<h2>eQTL — GEUVADIS LCL (QTD000110)</h2>
+<div class='sub'>Magnitude-discrimination AUROC on the common in-window set (identical n = 1681; bootstrap 95% CI). Higher = better at ranking large-|effect| eQTLs.</div>
+<table><tr><th class='rank'>#</th><th>Model</th><th class='num'>AUROC (magnitude)</th><th>95% CI</th><th class='num'>Sign-agree</th><th class='num'>Spearman ρ</th></tr>
+<tr class='baseline'><td class='rank'>1</td><td>fine-mapping PIP<span class='badge'>baseline</span></td><td class='num'>0.688</td><td></td><td class='num'>—</td><td class='num'>—</td></tr>
+<tr class='model'><td class='rank'>2</td><td>AlphaGenome</td><td class='num'>0.624</td><td>[0.587, 0.657]</td><td class='num'>0.678</td><td class='num'>0.488</td></tr>
+<tr class='model'><td class='rank'>3</td><td>Borzoi</td><td class='num'>0.600</td><td>[0.562, 0.630]</td><td class='num'>0.585</td><td class='num'>0.269</td></tr>
+<tr class='baseline'><td class='rank'>4</td><td>distance-to-TSS<span class='badge'>baseline</span></td><td class='num'>0.573</td><td></td><td class='num'>—</td><td class='num'>—</td></tr>
+<tr class='model'><td class='rank'>5</td><td>Evo2</td><td class='num'>0.516</td><td>[0.485, 0.552]</td><td class='num'>0.474</td><td class='num'>-0.065</td></tr>
+</table>
+<h2>eQTL — GTEx whole blood (QTD000356)</h2>
+<div class='sub'>Cross-cohort replication of the GEUVADIS pattern. The ranked table uses the FAIR COMMON SET (n = 1707) where AlphaGenome and Borzoi score the same pairs: AlphaGenome 0.617 vs Borzoi 0.606, DeLong p = 0.40 (not significant). AlphaGenome&#x27;s full 1 Mb-eligible AUROC (n = 1772: 0.600, gene-clustered CI shown) is listed in its row label. PIP is an outcome-informed reference, not a sequence-only baseline.</div>
+<table><tr><th class='rank'>#</th><th>Model</th><th class='num'>AUROC (magnitude)</th><th>95% CI</th><th class='num'>Sign-agree</th><th class='num'>Spearman ρ</th></tr>
+<tr class='baseline'><td class='rank'>1</td><td>fine-mapping PIP (reference)<span class='badge'>baseline</span></td><td class='num'>0.664</td><td>[0.633, 0.696]</td><td class='num'>—</td><td class='num'>—</td></tr>
+<tr class='model'><td class='rank'>2</td><td>AlphaGenome (official; full-eligible n=1772: 0.600)</td><td class='num'>0.617</td><td>[0.565, 0.634]</td><td class='num'>0.682</td><td class='num'>0.500</td></tr>
+<tr class='model'><td class='rank'>3</td><td>Borzoi</td><td class='num'>0.606</td><td>[0.572, 0.636]</td><td class='num'>0.577</td><td class='num'>0.209</td></tr>
+<tr class='baseline'><td class='rank'>4</td><td>distance-to-TSS<span class='badge'>baseline</span></td><td class='num'>0.540</td><td>[0.504, 0.573]</td><td class='num'>—</td><td class='num'>—</td></tr>
+</table>
+<h2>Gasperini K562 CRISPRi — full test set (all element types)</h2>
+<div class='sub'>Direction AUROC ranking screen hits vs non-hits by |predicted Δ| over all n = 3789 test pairs (51 hits). The distance ruler and the ABC / rE2G maps out-rank the sequence oracles here.</div>
+<table><tr><th class='rank'>#</th><th>Model</th><th class='num'>AUROC (hit direction)</th><th>95% CI</th></tr>
+<tr class='baseline'><td class='rank'>1</td><td>distance-to-TSS<span class='badge'>baseline</span></td><td class='num'>0.868</td><td></td></tr>
+<tr class='baseline'><td class='rank'>2</td><td>ENCODE-rE2G<span class='badge'>baseline</span></td><td class='num'>0.817</td><td></td></tr>
+<tr class='baseline'><td class='rank'>3</td><td>ABC score<span class='badge'>baseline</span></td><td class='num'>0.806</td><td></td></tr>
+<tr class='model'><td class='rank'>4</td><td>Borzoi</td><td class='num'>0.493</td><td></td></tr>
+<tr class='model'><td class='rank'>5</td><td>Enformer</td><td class='num'>0.368</td><td></td></tr>
+</table>
+<h2>Gasperini K562 CRISPRi — distal-DHS stratum</h2>
+<div class='sub'>Direction AUROC on distal DHS enhancers, the stratum where sequence oracles are expected to add value over distance. Per-model n differs with receptive field (shown); values as committed.</div>
+<table><tr><th class='rank'>#</th><th>Model</th><th class='num'>AUROC (DHS hit direction)</th><th>95% CI</th><th class='num'>n</th></tr>
+<tr class='model'><td class='rank'>1</td><td>Borzoi</td><td class='num'>0.873</td><td></td><td class='num'>—</td></tr>
+<tr class='model'><td class='rank'>2</td><td>AlphaGenome</td><td class='num'>0.845</td><td>[0.733, 0.936]</td><td class='num'>1928</td></tr>
+<tr class='baseline'><td class='rank'>3</td><td>distance-to-TSS<span class='badge'>baseline</span></td><td class='num'>0.804</td><td></td><td class='num'>—</td></tr>
+<tr class='model'><td class='rank'>4</td><td>Enformer</td><td class='num'>0.724</td><td></td><td class='num'>—</td></tr>
+<tr class='model'><td class='rank'>5</td><td>Evo2</td><td class='num'>0.513</td><td></td><td class='num'>2420</td></tr>
+</table>
+<div class='note'>Identical-set head-to-head (n = 1109, 43 hits): Borzoi 0.692 [0.615, 0.767] vs AlphaGenome 0.619 [0.519, 0.713]. AlphaGenome&#x27;s 1 Mb context covers 56.7% of pairs vs Borzoi 524 kb&#x27;s 30.4%.</div>
+<h2>Multi-tissue eQTL — cell-context axis</h2>
+<div class='sub'>Does a cell-type-matched track set discriminate that tissue&#x27;s eQTLs better than a mismatched one? n = 5619 variants, 4 tissues (blood / brain / muscle / skin). Reported for both Borzoi (track-reads) and the official AlphaGenome (native per-tissue heads).</div>
+<table><tr><th>Quantity</th><th>Value</th></tr>
+<tr><td>Borzoi: matched − mismatched AUROC</td><td class='num'>0.595 − 0.592 = 0.0029</td></tr>
+<tr><td>Borzoi: per-pair top-1 tissue accuracy</td><td class='num'>0.457 (chance 0.441)</td></tr>
+<tr><td>AlphaGenome: matched − mismatched AUROC</td><td class='num'>0.0079 (gene-clustered 95% CI [-0.0013, 0.0175], p = 0.11)</td></tr>
+<tr><td>AlphaGenome: per-pair top-1 tissue accuracy</td><td class='num'>0.484 (chance 0.442; gene-clustered excess +0.042, 95% CI [0.006, 0.077], p = 0.024; 707 rows span 642 genes)</td></tr>
+<tr><td>Cross-track-set pred. corr (median off-diag)</td><td class='num'>Borzoi 0.820 / AlphaGenome 0.662</td></tr>
+<tr><td>Measured β cross-tissue Pearson (ground-truth ceiling)</td><td class='num'>0.925–0.959</td></tr>
+</table>
+<div class='verdict'><b>Verdict.</b> Benchmark-axis identifiability failure, not a demonstrated architectural limit: the matched-head advantage is small and uncertain (AlphaGenome +0.008, gene-clustered CI crosses 0; per-pair top-1 gene-clustered excess +0.042, 95% CI [0.006, 0.077], p=0.024 — modestly above chance), and the ground truth itself carries almost no tissue-specific signal (cross-tissue β correlated 0.93–0.96).</div>
+<h2>Promoter CRISPRa activation (Chardon 2024)</h2>
+<div class='sub'>Locus-level agreement between promoter-ablation direction and CRISPRa responsiveness. n = 626 guide pairs over 18 loci (K562 + neuron).</div>
+<table><tr><th>Quantity</th><th>Value</th></tr>
+<tr><td>Ablation-direction agreement, pooled activatable loci</td><td class='num'>0.400</td></tr>
+<tr><td>  — K562</td><td class='num'>0.000</td></tr>
+<tr><td>  — neuron</td><td class='num'>0.800</td></tr>
+<tr><td>CRISPRi in-window reference (context)</td><td class='num'>0.790</td></tr>
+</table>
+<div class='verdict'><b>Verdict.</b> Direction agreement is cell-type-dependent (neuron 0.80, K562 0.00) and below the CRISPRi in-window reference (0.79): promoter-activation direction is only partially captured.</div>
+<h2>Reporter variant-effect (bidirectional single-base MPRA) — Kircher/Ahituv 2019</h2>
+<div class='sub'>Sign agreement on significant single-base edits (the one BIDIRECTIONAL axis: 2948 activating / 4376 repressing of 7324 significant, 31287 scored, 21 elements). Episomal MPRA reporter (not genomic editing); effects RECONSTRUCTED from GEO raw counts w/ authors&#x27; model — exploratory tier, not V4-admitted.</div>
+<table><tr><th>Quantity</th><th>Value</th></tr>
+<tr><td>Sign agreement, significant edits (random baseline)</td><td class='num'>0.495</td></tr>
+<tr><td>  chance reference (bidirectional)</td><td class='num'>0.500</td></tr>
+<tr><td>Magnitude AUROC: |pred| separates significant edits (random baseline)</td><td class='num'>0.505</td></tr>
+<tr><td>Majority-class-sign baseline</td><td class='num'>0.597</td></tr>
+</table>
+<div class='verdict'><b>Verdict.</b> Harness live; the seeded RANDOM baseline sits at chance (0.50) as it must, confirming the axis discriminates direction. A real oracle must beat 0.50 here — the direction test the CRISPRi axes are degenerate for. CAVEAT: the independent unit is the element (~21), not the significant-variant count — variant-level CIs are optimistically narrow, so the scorer now reports element-clustered CIs; the binding limit is the element count (~21). Model scoring gated on the signed SAP.</div>
+<h2>GWAS-variant single-cell CRISPRi — STING-seq (Morris 2023, K562)</h2>
+<div class='sub'>Direction recovery on the published significant-links subset (168 links / 123 genes; 158 repressive / 10 activating). Exploratory tier (cross-screen concordance, not independent validation), not V4-admitted.</div>
+<table><tr><th>Quantity</th><th>Value</th></tr>
+<tr><td>Sign agreement (distance-prior baseline)</td><td class='num'>0.940</td></tr>
+<tr><td>Majority-class-sign baseline (predict-all-repressive)</td><td class='num'>0.940</td></tr>
+</table>
+<div class='verdict'><b>Verdict.</b> The truth is ~94% repressive, so the distance prior EXACTLY equals the majority-class baseline (both 0.940): it adds nothing. A submission is only meaningful if it beats the majority-class-sign baseline. Model scoring gated on the signed SAP.</div>
+<h2>Historical fixture contract</h2>
+<ol><li>Produce one submission file per axis — a table keyed by that axis's <code>pair_id</code> with your predicted <code>pred_delta</code> (four <code>pred_delta_&lt;tissue&gt;</code> columns for the multi-tissue axis). See the submission format spec (published with the dataset release) for the full contract, dtypes, sign conventions, and worked examples.</li><li>Score it with the official harness:<pre>python code/score_submission.py \
+    --submission my_preds.csv --axis eqtl_geuvadis \
+    --model-name MyModel --out my_scored.json</pre></li><li><code>python code/score_submission.py --selftest</code> round-trips the committed legacy fixtures under the explicit portable numerical contract.</li><li>Do not submit results for a public leaderboard until Gate C authorizes an admitted release.</li></ol>
+</body></html>
